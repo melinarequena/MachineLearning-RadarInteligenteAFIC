@@ -12,11 +12,13 @@ def crear_modelo():
     return modelo
 
 def entrenar_modelo(modelo, datos_entrada, etiquetas_salida):
+
     # Compilación del modelo
     modelo.compile(
         optimizer=tf.keras.optimizers.Adam(0.1),
         loss='mean_squared_error'
     )
+
     # Entrenamiento
     print("Comenzando el entrenamiento...\n")
     historial = modelo.fit(datos_entrada, etiquetas_salida, epochs=500, verbose=False)
