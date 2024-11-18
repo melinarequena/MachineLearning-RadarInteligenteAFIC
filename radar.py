@@ -1,7 +1,7 @@
-import tensorflow as tf
-import numpy as np
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Desactiva las advertencias
+import tensorflow as tf
+import numpy as np
 
 # Datos simulados (distancia, velocidad, ángulo) -> Movimiento y distancia futura
 # Distancia en mm, velocidad en mm/s, ángulo en grados
