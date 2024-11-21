@@ -3,12 +3,18 @@ import numpy as np
 import tensorflow as tf
 from modelo import crear_modelo, entrenar_modelo
 from clasificacion import clasificar_movimiento, mostrar_resultados
+from conexionBA import obtenerUltimoDato
 
 # Desactivar las advertencias de TensorFlow
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
+ipRasberry = ""#poner el IP de la Rasberry
+
+# Crear el modelo
+modelo = crear_modelo()
+
 # Datos simulados (distancia, velocidad, ángulo)
-datos_entrada = np.array([
+datos_entrada_entrenamiento = np.array([
     [500, 50, 45],  # Ejemplo 1
     [1500, -30, 90],  # Ejemplo 2
     [200, 0, 60],  # Ejemplo 3
@@ -35,17 +41,34 @@ etiquetas_salida = np.array([
     [2, 1210]  # Movimiento rápido
 ], dtype=float)
 
-# Crear y entrenar el modelo
-modelo = crear_modelo()
-entrenar_modelo(modelo, datos_entrada, etiquetas_salida)
+#entrenar modelo
+entrenar_modelo(modelo, datos_entrada_entrenamiento, etiquetas_salida)
+#consultar la Rasberry pi
+ultimoDato = obtenerUltimoDato(ipRasberry)
 
-# Realizar predicciones
-nueva_entrada = np.array([[1000, 100, 60]])  # Distancia=1000 mm, Velocidad=-60 mm/s, Ángulo=60°
-prediccion = modelo.predict(nueva_entrada)
-movimiento, distancia_futura = prediccion[0]
+if ultimoDato:
+    datos_entrada = np.array([ultimoDato["distancia"], ultimoDato["velocidad"], ultimoDato["angulo"]], dtype=float)
+    #Predecir con los datos obtenidos de la base
+    prediccion = modelo.predict(datos_entrada)
+    movimiento, distancia_futura = prediccion[0]
 
-# Clasificación del movimiento
-movimiento_clasificado = clasificar_movimiento(movimiento)
+    # Clasificación del movimiento
+    movimiento_clasificado = clasificar_movimiento(movimiento)
 
-# Mostrar resultados
-mostrar_resultados(movimiento_clasificado, distancia_futura)
+    # Mostrar resultados
+    mostrar_resultados(movimiento_clasificado, distancia_futura)
+
+else:
+    print("Error, no se pudo obtener el ultimo dato de la base")
+    datos_entrada = None
+
+
+
+
+
+
+"""# Realizar predicciones
+nueva_entrada = np.array([[1000, 100, 60]])  # Distancia=1000 mm, Velocidad=-60 mm/s, Ángulo=60°"""
+
+
+
