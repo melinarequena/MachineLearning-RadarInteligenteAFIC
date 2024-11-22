@@ -8,7 +8,7 @@ from conexionBA import obtenerUltimoDato
 # Desactivar las advertencias de TensorFlow
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-ipRasberry = ""#poner el IP de la Rasberry
+
 
 # Crear el modelo
 modelo = crear_modelo()
@@ -44,7 +44,7 @@ etiquetas_salida = np.array([
 #entrenar modelo
 entrenar_modelo(modelo, datos_entrada_entrenamiento, etiquetas_salida)
 #consultar la Rasberry pi
-ultimoDato = obtenerUltimoDato(ipRasberry)
+ultimoDato = obtenerUltimoDato()
 
 if ultimoDato:
     datos_entrada = np.array([ultimoDato["distancia"], ultimoDato["velocidad"], ultimoDato["angulo"]], dtype=float)
@@ -61,8 +61,6 @@ if ultimoDato:
 else:
     print("Error, no se pudo obtener el ultimo dato de la base")
     datos_entrada = None
-
-
 
 
 
