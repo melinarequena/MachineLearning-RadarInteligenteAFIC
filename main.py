@@ -39,13 +39,23 @@ etiquetas_salida = np.array([
 modelo = crear_modelo()
 entrenar_modelo(modelo, datos_entrada, etiquetas_salida)
 
-# Realizar predicciones
-nueva_entrada = np.array([[1000, 100, 60]])  # Distancia=1000 mm, Velocidad=-60 mm/s, Ángulo=60°
-prediccion = modelo.predict(nueva_entrada)
-movimiento, distancia_futura = prediccion[0]
+#consultar la Rasberry pi
+ultimoDato = obtenerUltimoDato()
 
-# Clasificación del movimiento
-movimiento_clasificado = clasificar_movimiento(movimiento)
 
-# Mostrar resultados
-mostrar_resultados(movimiento_clasificado, distancia_futura)
+
+if ultimoDato:
+    datos_entrada = np.array([ultimoDato["distancia"], ultimoDato["velocidad"], ultimoDato["angulo"]], dtype=float)
+    #Predecir con los datos obtenidos de la base
+    prediccion = modelo.predict(datos_entrada)
+    movimiento, distancia_futura = prediccion[0]
+
+    # Clasificación del movimiento
+    movimiento_clasificado = clasificar_movimiento(movimiento)
+
+    # Mostrar resultados
+    mostrar_resultados(movimiento_clasificado, distancia_futura)
+
+else:
+    print("Error, no se pudo obtener el ultimo dato de la base")
+    datos_entrada = None
