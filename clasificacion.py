@@ -1,4 +1,3 @@
-import numpy as np
 
 def clasificar_movimiento(movimiento):
     # Clasificación del movimiento

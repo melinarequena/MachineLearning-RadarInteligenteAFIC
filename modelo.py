@@ -1,5 +1,4 @@
 import tensorflow as tf
-import numpy as np
 
 def crear_modelo():
     # Definición de la red neuronal

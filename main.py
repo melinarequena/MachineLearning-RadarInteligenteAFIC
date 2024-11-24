@@ -1,6 +1,7 @@
 import os
 import numpy as np
-import tensorflow as tf
+
+from ConexionDB import obtenerUltimoDato
 from modelo import crear_modelo, entrenar_modelo
 from clasificacion import clasificar_movimiento, mostrar_resultados
 
@@ -40,7 +41,7 @@ modelo = crear_modelo()
 entrenar_modelo(modelo, datos_entrada, etiquetas_salida)
 
 #consultar la Rasberry pi
-ultimoDato = obtenerUltimoDato()
+ultimoDato =  obtenerUltimoDato()
 
 
 
