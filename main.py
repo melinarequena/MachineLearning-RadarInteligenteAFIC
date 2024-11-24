@@ -45,18 +45,18 @@ ultimoDato =  obtenerUltimoDato()
 
 
 
-if ultimoDato:
-    datos_entrada = np.array([ultimoDato["distancia"], ultimoDato["velocidad"], ultimoDato["angulo"]], dtype=float)
-    #Predecir con los datos obtenidos de la base
-    prediccion = modelo.predict(datos_entrada)
-    movimiento, distancia_futura = prediccion[0]
+#if ultimoDato:
+ #   datos_entrada = np.array([ultimoDato["distancia"], ultimoDato["velocidad"], ultimoDato["angulo"]], dtype=float)
+  #  #Predecir con los datos obtenidos de la base
+   # prediccion = modelo.predict(datos_entrada)
+   # movimiento, distancia_futura = prediccion[0]
 
     # Clasificación del movimiento
-    movimiento_clasificado = clasificar_movimiento(movimiento)
+ #   movimiento_clasificado = clasificar_movimiento(movimiento)
 
     # Mostrar resultados
-    mostrar_resultados(movimiento_clasificado, distancia_futura)
+ #   mostrar_resultados(movimiento_clasificado, distancia_futura)
 
-else:
-    print("Error, no se pudo obtener el ultimo dato de la base")
-    datos_entrada = None
+#else:
+ #   print("Error, no se pudo obtener el ultimo dato de la base")
+  #  datos_entrada = None
